@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>
+  <script src="/angular.min.js"></script>
+</head>
+<body>
+  <h2>👤 Account page</h2>
+  <div>
+    Welcome, <span>{{ name }}</span>
+  </div>
+
+  <script>
+    // Simulate stored XSS
+    var name = localStorage.getItem("name");
+    document.querySelector("span").innerHTML = name;
+  </script>
+</body>
+</html>

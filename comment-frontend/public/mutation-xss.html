@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Commentaires</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2em;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .comment-box {
+      margin-top: 30px;
+      background-color: #f5f5f5;
+      padding: 15px;
+      border-radius: 5px;
+    }
+    .comment {
+      margin-bottom: 15px;
+      padding: 10px;
+      background-color: white;
+      border-left: 3px solid #007bff;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@2.0.7/dist/purify.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Commentaires</h1>
+    <h2>Recherche dans les commentaires</h2>
+
+    <input type="text" id="searchInput" placeholder="Entrez un mot-clé" />
+    <label>
+      <input type="checkbox" id="useDOMPurify" />
+      Utiliser DOMPurify (v2.0.7)
+    </label>
+    <button onclick="search()">Rechercher</button>
+
+    <div class="comment-box" id="result">
+      <strong>Commentaires trouvés :</strong>
+    </div>
+  </div>
+
+  <script>
+    function search() {
+      const input = document.getElementById('searchInput').value;
+      const result = document.getElementById('result');
+      const useDOMPurify = document.getElementById('useDOMPurify').checked;
+
+      let html = '<div class="comment">' + input + '</div>';
+
+      if (useDOMPurify) {
+        html = DOMPurify.sanitize(html);
+      }
+
+      result.innerHTML = '<strong>Commentaires trouvés :</strong>' + html;
+
+      for (let i = 0; i < 2; i++) {
+        result.innerHTML += '';
+      }
+    }
+  </script>
+</body>
+</html>
+

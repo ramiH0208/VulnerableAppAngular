@@ -48,13 +48,13 @@ export class SearchDynamicComponent implements OnInit {
 
     this.commentService.getComments().subscribe(data => {
       this.comments = data;
-      this.displayFiltered(q);
     });
   }
 
   search(): void {
     const input = (document.getElementById('searchInput') as HTMLInputElement).value;
     location.href = '/search-dynamic?q=' + encodeURIComponent(input);
+    this.displayFiltered(input);
   }
 
   displayFiltered(keyword: string): void {
@@ -67,9 +67,14 @@ export class SearchDynamicComponent implements OnInit {
       </div>
     `).join('');
 
-    const template = `<div>${dynamicHtml}</div>`; // ⚠️ vulnérable
+    const template = `<div>${dynamicHtml}</div>`;
 
-    const tmpCmp = Component({ template })(class {});
+    const tmpCmp = Component({ template })(class {
+      Function = Function;
+      window = window;
+      console = console;
+    });
+
     const tmpModule = NgModule({ declarations: [tmpCmp] })(class {});
 
     this.compiler.compileModuleAndAllComponentsAsync(tmpModule).then(factories => {
@@ -79,3 +84,4 @@ export class SearchDynamicComponent implements OnInit {
     });
   }
 }
+
