@@ -22,6 +22,10 @@
         <strong style="font-size: 1.1rem;">{{ c.author }}</strong>
         <span style="color: #666; font-size: 0.9rem;">({{ c.created_at | date:'short' }})</span>
         <p style="margin-top: 0.5rem;" [innerHTML]="c.safeContent"></p>
+        <button (click)="deleteComment(c.id!)"
+                style="margin-top: 0.5rem; padding: 0.3rem 0.6rem; background-color: #dc3545; color: white; border: none; border-radius: 3px; cursor: pointer;">
+          🗑 Supprimer
+        </button>
       </div>
     </div>
   </div>

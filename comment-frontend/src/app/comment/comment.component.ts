@@ -38,4 +38,16 @@ export class CommentComponent implements OnInit {
       this.newComment = { author: '', content: '' };
     });
   }
+
+  deleteComment(id: number): void {
+    const requestedBy = prompt("Nom de l'utilisateur pour cette suppression :") || 'anonymous';
+    fetch(`http://localhost:8080/comments/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ requested_by: requestedBy })
+    }).then(() => this.commentService.getComments());
+  }
 }
+

@@ -30,7 +30,7 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void {
     const q = new URLSearchParams(location.search).get('q') || '';
 
-    // XSS vulnérable ici : affichage direct de l'entrée utilisateur
+    // XSS
     document.getElementById('queryDisplay')!.innerHTML = q;
 
     this.commentService.getComments().subscribe(data => {
